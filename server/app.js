@@ -27,6 +27,12 @@ app.get('/random', (req, res) => {
     res.send(pets[randIndex]);
 })
 
+// Post route to add a new cat
 
+app.post('/cats', (req, res) => {
+    const newCat = req.body;
+    pets.push(newCat);
+    res.status(201).send(`This cat has been added:\n${newCat}`)
+})
 
 module.exports = app;
