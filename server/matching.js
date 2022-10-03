@@ -25,10 +25,4 @@ const matching = (quizData) => {
 
 }
 
-const quizData = {
-    age: 6
-}
-
-matching(quizData);
-
 module.exports = matching;
