@@ -2,13 +2,15 @@ const pets  = [{
     name: "Fluffy",
     age: 2,
     color: "white",
-    favFood: "Tuna"
+    favFood: "Tuna",
+    breed: "Ragdol"
 
 },{
     name: "Garfield",
     age: 5,
     color: "golden",
-    favFood: "Lasagna"
+    favFood: "Lasagna",
+    breed: "Persian Tabby"
 }]
 
 
