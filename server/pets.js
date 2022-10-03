@@ -12,4 +12,4 @@ const pets  = [{
 }]
 
 
-modules.exports = pets;
+module.exports = pets;
