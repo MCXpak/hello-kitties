@@ -14,7 +14,11 @@ app.get('/', (req, res) => {
     res.send("Welcome to the Hello Kitties API")
 })
 
+//All pets route
 
+app.get('/cats', (req, res) => {
+    res.send(pets);
+})
 
 
 
