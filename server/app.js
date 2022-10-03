@@ -20,7 +20,12 @@ app.get('/cats', (req, res) => {
     res.send(pets);
 })
 
+// Random cat route
 
+app.get('/random', (req, res) => {
+    const randIndex = Math.floor(Math.random()*pets.length)
+    res.send(pets[randIndex]);
+})
 
 
 
