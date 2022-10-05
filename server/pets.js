@@ -15,7 +15,7 @@ const pets  = [{
     age: 5,
     color: "golden",
     favFood: "Lasagna",
-    breed: "Persian Tabby",
+    breed: "Persian",
     url: "https://cdn2.thecatapi.com/images/3Pem6K30P.jpg"
 },{
     name: "Mew",
