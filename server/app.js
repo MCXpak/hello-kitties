@@ -4,13 +4,14 @@ const cors = require('cors');
 const fetchBreeds = require('./fetchBreeds');
 let breeds;
 let breedMatches = [];
+let breedsArray;
 
-async function matching(quizData, res) {
+async function matching(quizData,res) {
     breeds = await fetchBreeds.getData();
     for (let key in quizData){
         filterByKey(key, quizData[key], breeds);
     }
-    fetchBreeds.sortBreeedPop(breedMatches,res)
+    breedsArray = fetchBreeds.sortBreeedPop(breedMatches,res)
 }
 
 function filterByKey(key, keyValue, breeds) {
@@ -65,7 +66,19 @@ app.put('/matching', (req, res) => {
     matching(quizData, res);
     console.log('I am finished')
     // console.log(breedMatches)
-    //res.send('Hello')
+    res.send('Hello')
+})
+
+app.get('/tinder', (req, res) => {
+    let catTinderMatches = [];
+    for (let breed of breedsArray){
+        for (let cat of pets){
+            if (cat.breed === breed.breedName){
+                catTinderMatches.push(cat);
+            }
+        }
+    }
+    res.send(catTinderMatches);
 })
 
 module.exports = app;
