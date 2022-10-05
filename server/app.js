@@ -6,12 +6,11 @@ let breeds;
 let breedMatches = [];
 
 async function matching(quizData, res) {
-    breeds = await fetchBreeds();
+    breeds = await fetchBreeds.getData();
     for (let key in quizData){
         filterByKey(key, quizData[key], breeds);
     }
-    
-    res.send("Working");
+    fetchBreeds.sortBreeedPop(breedMatches,res)
 }
 
 function filterByKey(key, keyValue, breeds) {
@@ -61,7 +60,7 @@ app.post('/cats', (req, res) => {
 })
 
 app.put('/matching', (req, res) => {
-    
+    breedMatches = [];
     const quizData = req.body;
     matching(quizData, res);
     console.log('I am finished')

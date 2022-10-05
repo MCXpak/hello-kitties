@@ -15,7 +15,7 @@ const getData = async () =>{
 }
 
 
-function sortBreeedPop(breedMatches){
+function sortBreeedPop(breedMatches, res){
     let breedsArray = [];
     let count;
     let uniqueBreedMatches = [...new Set(breedMatches)];
@@ -28,7 +28,10 @@ function sortBreeedPop(breedMatches){
         });
         breedsArray.push({breedName: `${uniqueBreed}`, count: `${count}`})
     }
-    
+    res.send(breedsArray)
 }
 
-module.exports = getData;
+module.exports = {
+    getData,
+    sortBreeedPop
+}

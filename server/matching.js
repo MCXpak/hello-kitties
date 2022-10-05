@@ -1,28 +1,28 @@
-const pets = require('./pets');
 
-const matching = (quizData) => {
-    const catMatches = [];
-    const catCount = [];
-    for (let n of pets){
-        catCount.push(0);
-    }
-    console.log(catCount);
+async function matching(quizData, breeds) {
+    let breedMatches = [];
     for (let key in quizData){
-        switch (key) {
-            case "age":
-                for (let cat of pets){
-                    if (cat.age < quizData[key]){
-                        catCount[cat.id]++;
-                    }
-                }
-            break;
-        
-            default:
-                break;
-        }
+        breedMatches += filterByKey(key, quizData[key], breeds);
     }
-    console.log(catCount);
-
+    return breedMatches;
 }
 
-module.exports = matching;
+function filterByKey(key, keyValue, breeds) {
+    const matches = [];
+    for (let breed of breeds){
+        if (breed[`${key}`] >= keyValue){
+            
+            matches.push(breed.name);
+        }
+    }
+    return matches;
+}
+
+
+
+
+
+module.exports = {
+    matching,
+    filterByKey
+}
