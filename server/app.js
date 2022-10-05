@@ -1,14 +1,39 @@
 const express = require('express');
 const cors = require('cors');
 
+const fetchBreeds = require('./fetchBreeds');
+let breeds;
+let breedMatches = [];
+
+async function matching(quizData, res) {
+    breeds = await fetchBreeds();
+    for (let key in quizData){
+        filterByKey(key, quizData[key], breeds);
+    }
+    
+    res.send("Working");
+}
+
+function filterByKey(key, keyValue, breeds) {
+    for (let breed of breeds){
+        if (breed[`${key}`] >= keyValue){
+            //console.log('I am in 2')
+            breedMatches.push(breed.name);
+        }
+    }
+}
+
 const pets = require('./pets');
 const logRoute = require('./logRoute');
+//const matchFncs = require('./matching');
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors()); 
 app.use(logRoute);
+
+
 
 app.get('/', (req, res) => {
     res.send("Welcome to the Hello Kitties API")
@@ -33,6 +58,15 @@ app.post('/cats', (req, res) => {
     const newCat = req.body;
     pets.push(newCat);
     res.status(201).send(`This cat has been added:\n${newCat}`)
+})
+
+app.put('/matching', (req, res) => {
+    
+    const quizData = req.body;
+    matching(quizData, res);
+    console.log('I am finished')
+    // console.log(breedMatches)
+    //res.send('Hello')
 })
 
 module.exports = app;
