@@ -28,7 +28,9 @@ function sortBreeedPop(breedMatches, res){
         });
         breedsArray.push({breedName: `${uniqueBreed}`, count: `${count}`})
     }
-    res.send(breedsArray)
+
+    breedsArray.sort((a, b) => b.count - a.count)
+    return breedsArray;
 }
 
 module.exports = {
