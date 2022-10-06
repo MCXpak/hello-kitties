@@ -5,6 +5,7 @@ const fetchBreeds = require('./fetchBreeds');
 let breeds;
 let breedMatches = [];
 let breedsArray;
+let savedPets = [];
 
 async function matching(quizData,res) {
     breeds = await fetchBreeds.getData();
@@ -99,6 +100,16 @@ app.get('/tinder', (req, res) => {
         }
     }
     res.send(catTinderMatches);
+})
+
+app.get('/saved', (req,res) => {
+    res.send(savedPets)
+})
+
+app.post('/saved', (req, res) => {
+    const savedCats = req.body;
+    savedPets.push(savedCats)
+    res.status(200).send(savedCats)
 })
 
 module.exports = app;
