@@ -45,6 +45,26 @@ app.get('/cats', (req, res) => {
     res.send(pets);
 })
 
+//All pets route
+
+app.get('/cats/:id', (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        //console.log(id);
+
+        if (isNaN(id)) {
+            throw "Invalid input!"
+        } else if (id < 0 || id >= pets.length) {
+            throw "no such cat!"
+        }
+        //console.log(id);
+        const filtered = pets.filter(cat => cat.id == id);
+        res.send(filtered[0]);
+    } catch (e) {
+        res.status(400).send({ error: e})
+    }
+})
+
 // Random cat route
 
 app.get('/random', (req, res) => {
