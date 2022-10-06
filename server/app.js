@@ -12,7 +12,7 @@ async function matching(quizData,res) {
     for (let key in quizData){
         filterByKey(key, quizData[key], breeds);
     }
-    breedsArray = fetchBreeds.sortBreeedPop(breedMatches,res)
+    breedsArray = fetchBreeds.sortBreedPop(breedMatches,res)
 }
 
 function filterByKey(key, keyValue, breeds) {
