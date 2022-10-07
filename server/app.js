@@ -2,27 +2,39 @@ const express = require('express');
 const cors = require('cors');
 
 const fetchBreeds = require('./fetchBreeds');
-let breeds;
-let breedMatches = [];
-let breedsArray;
+//let breeds;
+let breedMatches;
+// breedsArray = [];
 let savedPets = [];
 
 async function matching(quizData,res) {
-    breeds = await fetchBreeds.getData();
+    let matches = [];
+    let breedsArray;
+    let breeds = await fetchBreeds.getData();
+    //console.log(breeds);
     for (let key in quizData){
-        filterByKey(key, quizData[key], breeds);
+        console.log(key)
+        let match = filterByKey(key, quizData[key], breeds);
+        matches.push(match);
     }
-    breedsArray = fetchBreeds.sortBreedPop(breedMatches,res)
+    
+    matches = matches.flat();
+    console.log(matches.length);
+    breedsArray = fetchBreeds.sortBreedPop(matches,res);
+    return breedsArray;
 }
 
 function filterByKey(key, keyValue, breeds) {
+    let matchesBreeds = [];
     for (let breed of breeds){
+        //console.log(breed)
         if (breed[`${key}`] >= keyValue){
             //console.log('I am in 2')
-            breedMatches.push(breed.name);
+            matchesBreeds.push(breed.name);
         }
     }
-}
+    return matchesBreeds;
+}   
 
 const pets = require('./pets');
 const logRoute = require('./logRoute');
@@ -81,20 +93,23 @@ app.post('/cats', (req, res) => {
     res.status(201).send(`This cat has been added:\n${newCat}`)
 })
 
-app.put('/matching', (req, res) => {
+app.put('/matching', async (req, res) => {
     breedMatches = [];
     const quizData = req.body;
-    matching(quizData, res);
+    breedMatches = await matching(quizData, res);
+    //let response = breedMatches.json();
     console.log('I am finished')
-    // console.log(breedMatches)
+    //console.log(breedMatches)
+    //console.log(response)
     res.send('Hello')
 })
 
 app.get('/tinder', (req, res) => {
     let catTinderMatches = [];
-    for (let breed of breedsArray){
+    for (let breed of breedMatches){
         for (let cat of pets){
             if (cat.breed === breed.breedName){
+                console.log('Match')
                 catTinderMatches.push(cat);
             }
         }

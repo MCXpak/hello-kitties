@@ -15,14 +15,14 @@ const getData = async () =>{
 }
 
 
-function sortBreedPop(breedMatches, res){
+function sortBreedPop(matches, res){
     let breedsArray = [];
     let count;
-    let uniqueBreedMatches = [...new Set(breedMatches)];
+    let uniqueBreedMatches = [...new Set(matches)];
     for (let uniqueBreed of uniqueBreedMatches){
         count = 0;
-        breedMatches.forEach(breed => {
-            if (uniqueBreed === breed){
+        matches.forEach(breed => {
+            if (breed === uniqueBreed){
                 count++;
             }
         });
